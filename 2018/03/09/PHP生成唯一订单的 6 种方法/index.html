@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    php 生成唯一订单的 6 种方法 | 帅气的狗头
+  </title>
+  <meta name="description" content="我们敲代码的不懂这些，，，">
+  
+  <meta name="keywords" content="
+  PHP
+  ">
+  
+  <meta name="author" content="xiaoxie">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1953278525,788409613&amp;fm=27&amp;gp=0.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 4 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 4 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 3 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">帅气的狗头</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    xiaoxie
+
+    <span class="post-date float-right" title="{{moment(1520608146266).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1520608146266).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>php 生成唯一订单的 6 种方法</h1>
+    <p>PHP生成唯一订单号其实是非常的简单了我们随便就可以整理多种生成方式了，这里小编整理了6种方式供各位参考。</p>
+<p>做商城类项目经常需要生成唯一订单号，下面来个汇总！</p>
+<h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一:"></a>方法一:</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> date(<span class="string">'Ymd'</span>) . str_pad(mt_rand(<span class="number">1</span>, <span class="number">99999</span>), <span class="number">5</span>, <span class="string">'0'</span>, STR_PAD_LEFT);</span><br></pre></td></tr></table></figure>
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二:"></a>方法二:</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> * uniqid - 官方是这样说的： </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> * Gets a prefixed unique identifier based on the current time in microseconds. </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> */</span> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">build_order_no</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> date(<span class="string">'Ymd'</span>).&lt;a href=<span class="string">"/tags.php/substr/"</span> target=<span class="string">"_blank"</span>&gt;substr&lt;/a&gt;(implode(<span class="keyword">NULL</span>, array_map(<span class="string">'ord'</span>, str_split(substr(uniqid(), <span class="number">7</span>, <span class="number">13</span>), <span class="number">1</span>))), <span class="number">0</span>, <span class="number">8</span>); </span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用uniqid获取一个基于当前的微秒数生成的唯一不重复的字符串（但是他的前7位貌似很久才会发生变动，所以不用考虑可删除），取其第8到13位。但是这个字符串里面有英文字母，咋办？</p>
+<p>用ord获取他的ASCII码，所以就有了下一步：用str_split把这个字符串分割为数组，用array_map去操作（速度快点）。</p>
+<p>然后返回的还是一个数组，KO，在用implode弄成字符串，但是字符长度不定，取前固定的几位，然后前面加上当前的年份和日期，这个方法生成的订单号，全世界不会有多少重复的。</p>
+<p>当然，除非你把服务器时间往前调，但是调也不用怕，哥不相信他会在同一微秒内下两次订单，网络数据传输也要点时间的，即便你是在本地。</p>
+<h4 id="方法三"><a href="#方法三" class="headerlink" title="方法三:"></a>方法三:</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">make_order</span><span class="params">($user_id)</span> </span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"> </span>&#123; </span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> mt_rand(<span class="number">10</span>,<span class="number">99</span>) </span><br><span class="line"> </span><br><span class="line"> . sprintf(<span class="string">'%010d'</span>,time() - <span class="number">946656000</span>) </span><br><span class="line"> </span><br><span class="line"> . sprintf(<span class="string">'%03d'</span>, (float) microtime() * <span class="number">1000</span>) </span><br><span class="line"> </span><br><span class="line"> . sprintf(<span class="string">'%03d'</span>, (int) $user_id % <span class="number">1000</span>); </span><br><span class="line"> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="方法四-我是比较喜欢这种方式的-O-∩-∩-O哈哈"><a href="#方法四-我是比较喜欢这种方式的-O-∩-∩-O哈哈" class="headerlink" title="方法四: 我是比较喜欢这种方式的(O(∩_∩)O哈哈~)"></a>方法四: 我是比较喜欢这种方式的(O(∩_∩)O哈哈~)</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$yCode = <span class="keyword">array</span>(<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="string">'D'</span>, <span class="string">'E'</span>, <span class="string">'F'</span>, <span class="string">'G'</span>, <span class="string">'H'</span>, <span class="string">'I'</span>, <span class="string">'J'</span>); </span><br><span class="line"> </span><br><span class="line">$orderSn = $yCode[intval(date(<span class="string">'Y'</span>)) - <span class="number">2011</span>] . strtoupper(dechex(date(<span class="string">'m'</span>))) . date(<span class="string">'d'</span>) . substr(time(), <span class="number">-5</span>) . substr(microtime(), <span class="number">2</span>, <span class="number">5</span>) . sprintf(<span class="string">'%02d'</span>, rand(<span class="number">0</span>, <span class="number">99</span> </span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+<h4 id="方法五-生成24位唯一订单号码"><a href="#方法五-生成24位唯一订单号码" class="headerlink" title="方法五 生成24位唯一订单号码:"></a>方法五 生成24位唯一订单号码:</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//生成24位唯一订单号码，格式：YYYY-MMDD-HHII-SS-NNNN,NNNN-CC，其中：YYYY=年份，MM=月份，DD=日期，HH=24格式小时，II=分，SS=秒，NNNNNNNN=随机数，CC=检查码 </span></span><br><span class="line">  @date_default_timezone_set(<span class="string">"PRC"</span>); </span><br><span class="line">  <span class="keyword">while</span>(<span class="keyword">true</span>)&#123; </span><br><span class="line">   <span class="comment">//订购日期 </span></span><br><span class="line">   $order_date = date(<span class="string">'Y-m-d'</span>); </span><br><span class="line">   <span class="comment">//订单号码主体（YYYYMMDDHHIISSNNNNNNNN） </span></span><br><span class="line">   $order_id_main = date(<span class="string">'YmdHis'</span>) . rand(<span class="number">10000000</span>,<span class="number">99999999</span>); </span><br><span class="line">   <span class="comment">//订单号码主体长度 </span></span><br><span class="line">   $order_id_len = strlen($order_id_main); </span><br><span class="line">   $order_id_sum = <span class="number">0</span>; </span><br><span class="line">   <span class="keyword">for</span>($i=<span class="number">0</span>; $i&lt;$order_id_len; $i++)&#123; </span><br><span class="line">    $order_id_sum += (int)(substr($order_id_main,$i,<span class="number">1</span>)); </span><br><span class="line">   &#125; </span><br><span class="line">   <span class="comment">//唯一订单号码（YYYYMMDDHHIISSNNNNNNNNCC） </span></span><br><span class="line">   $order_id = $order_id_main . str_pad((<span class="number">100</span> - $order_id_sum % <span class="number">100</span>) % <span class="number">100</span>,<span class="number">2</span>,<span class="string">'0'</span>,STR_PAD_LEFT); </span><br><span class="line">    </span><br><span class="line">   <span class="keyword">if</span>($result = sqlite_query($db,<span class="string">"SELECT * FROM orders WHERE order_id='$order_id'"</span>))&#123; </span><br><span class="line">    <span class="keyword">if</span>(sqlite_num_rows($result) == <span class="number">0</span>)&#123; </span><br><span class="line">     <span class="keyword">break</span>; </span><br><span class="line">    &#125; </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例子六"><a href="#例子六" class="headerlink" title="例子六:"></a>例子六:</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**  </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">* 生成16位纯数字订单号  </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">* 最大支持时间到 2056-12-31 23:59:59  </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">*  </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">* <span class="doctag">@access</span> public  </span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span> string  </span></span><br><span class="line"><span class="comment">//phpfensi.com </span></span><br><span class="line"><span class="comment">*/</span>  </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getOrderSN</span><span class="params">()</span> </span>&#123;  </span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> (date(<span class="string">'y'</span>) + date(<span class="string">'m'</span>) + date(<span class="string">'d'</span>)) . str_pad((time() - &lt;a href=<span class="string">"/tags.php/strtotime/"</span> target=<span class="string">"_blank"</span>&gt;strtotime&lt;/a&gt;(date(<span class="string">'Y-m-d'</span>))), <span class="number">5</span>, <span class="number">0</span>, STR_PAD_LEFT) . substr(microtime(), <span class="number">2</span>, <span class="number">6</span>) . sprintf(<span class="string">'%03d'</span>, rand(<span class="number">0</span>, <span class="number">999</span>));  </span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>目前在用的,基本保证不重复了,能用到2056年,觉得应该够了,以后有需求再扩展.</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://blog.wddog.cn" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 xiaoxie</li>
+      <li><a href="http://blog.wddog.cn">Home</a></li>
+      
+      <li><a href="https://github.com/xiaoxiezaijia">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
