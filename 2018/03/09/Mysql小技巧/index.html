@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Mysql 忘记密码解决与用户创建，授权详解 | 帅气的狗头
+  </title>
+  <meta name="description" content="我们敲代码的不懂这些，，，">
+  
+  <meta name="keywords" content="
+  Mysql,PHP
+  ">
+  
+  <meta name="author" content="xiaoxie">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1953278525,788409613&amp;fm=27&amp;gp=0.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 3 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 4 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 2 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">帅气的狗头</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    xiaoxie
+
+    <span class="post-date float-right" title="{{moment(1520592888450).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1520592888450).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Mysql 忘记密码解决与用户创建，授权详解</h1>
+    <p>当你忘记 Mysql 密码时，又能操作 服务器 (Linux) 时 就能很简单的重设密码，下面就和我一起学习吧！</p>
+<h3 id="一、Mysql-绕过密码登录"><a href="#一、Mysql-绕过密码登录" class="headerlink" title="一、Mysql 绕过密码登录"></a>一、Mysql 绕过密码登录</h3><h5 id="1-KILL掉系统里的MySQL进程；"><a href="#1-KILL掉系统里的MySQL进程；" class="headerlink" title="1. KILL掉系统里的MySQL进程；"></a>1. KILL掉系统里的MySQL进程；</h5><h5 id="2-用以下命令启动MySQL，以不检查权限的方式启动；"><a href="#2-用以下命令启动MySQL，以不检查权限的方式启动；" class="headerlink" title="2. 用以下命令启动MySQL，以不检查权限的方式启动；"></a>2. 用以下命令启动MySQL，以不检查权限的方式启动；</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld_safe --skip-grant-tables &amp;</span><br></pre></td></tr></table></figure>
+<h5 id="3-然后用空密码方式使用root用户登录-MySQL；"><a href="#3-然后用空密码方式使用root用户登录-MySQL；" class="headerlink" title="3. 然后用空密码方式使用root用户登录 MySQL；"></a>3. 然后用空密码方式使用root用户登录 MySQL；</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root</span><br></pre></td></tr></table></figure>
+<h5 id="4-修改-root-用户密码"><a href="#4-修改-root-用户密码" class="headerlink" title="4. 修改 root 用户密码"></a>4. 修改 root 用户密码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update mysql.user set password=PASSWORD（&apos;123456&apos;） where User=root and host=&apos;localhost&apos;；</span><br><span class="line">mysql&gt; flush privileges；  // 把配置写入内存 生效</span><br><span class="line">mysql&gt; quit</span><br></pre></td></tr></table></figure>
+<h5 id="5-重新启动MySQL，就可以使用新密码登录了。"><a href="#5-重新启动MySQL，就可以使用新密码登录了。" class="headerlink" title="5. 重新启动MySQL，就可以使用新密码登录了。"></a>5. 重新启动MySQL，就可以使用新密码登录了。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p123456</span><br></pre></td></tr></table></figure>
+<h3 id="二、MySQL添加新用户、为用户创建数据库、为新用户分配权限"><a href="#二、MySQL添加新用户、为用户创建数据库、为新用户分配权限" class="headerlink" title="二、MySQL添加新用户、为用户创建数据库、为新用户分配权限"></a>二、MySQL添加新用户、为用户创建数据库、为新用户分配权限</h3><h5 id="登录MySQL"><a href="#登录MySQL" class="headerlink" title="登录MySQL"></a>登录MySQL</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<h5 id="添加新用户"><a href="#添加新用户" class="headerlink" title="添加新用户"></a>添加新用户</h5><p>允许本地 IP 访问 localhost, 127.0.0.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;test&apos;@&apos;localhost&apos; identified by &apos;123456&apos;;</span><br></pre></td></tr></table></figure>
+<h5 id="允许外网-IP-访问"><a href="#允许外网-IP-访问" class="headerlink" title="允许外网 IP 访问"></a>允许外网 IP 访问</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;test&apos;@&apos;%&apos; identified by &apos;123456&apos;;</span><br></pre></td></tr></table></figure>
+<h5 id="刷新授权"><a href="#刷新授权" class="headerlink" title="刷新授权"></a>刷新授权</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h5 id="为用户创建数据库"><a href="#为用户创建数据库" class="headerlink" title="为用户创建数据库"></a>为用户创建数据库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database test DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</span><br></pre></td></tr></table></figure>
+<h5 id="为新用户分配权限"><a href="#为新用户分配权限" class="headerlink" title="为新用户分配权限"></a>为新用户分配权限</h5><h6 id="授予用户通过外网IP对于该数据库的全部权限"><a href="#授予用户通过外网IP对于该数据库的全部权限" class="headerlink" title="授予用户通过外网IP对于该数据库的全部权限"></a>授予用户通过外网IP对于该数据库的全部权限</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on `testdb`.* to &apos;test&apos;@&apos;%&apos; identified by &apos;123456&apos;;</span><br></pre></td></tr></table></figure>
+<h5 id="授予用户在本地服务器对该数据库的全部权限"><a href="#授予用户在本地服务器对该数据库的全部权限" class="headerlink" title="授予用户在本地服务器对该数据库的全部权限"></a>授予用户在本地服务器对该数据库的全部权限</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on `testdb`.* to &apos;test&apos;@&apos;localhost&apos; identified by &apos;123456&apos;;</span><br></pre></td></tr></table></figure>
+<h5 id="刷新权限"><a href="#刷新权限" class="headerlink" title="刷新权限"></a>刷新权限</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<h5 id="退出-root-重新登录"><a href="#退出-root-重新登录" class="headerlink" title="退出 root 重新登录"></a>退出 root 重新登录</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+<h5 id="用新帐号-test-重新登录，由于使用的是-任意IP连接，所以需要指定外部访问IP"><a href="#用新帐号-test-重新登录，由于使用的是-任意IP连接，所以需要指定外部访问IP" class="headerlink" title="用新帐号 test 重新登录，由于使用的是 % 任意IP连接，所以需要指定外部访问IP"></a>用新帐号 test 重新登录，由于使用的是 % 任意IP连接，所以需要指定外部访问IP</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u test -h 115.28.203.224 -p</span><br></pre></td></tr></table></figure>
+<p>在Ubuntu服务器下，MySQL默认是只允许本地登录，因此需要修改配置文件将地址绑定给注释掉：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Instead of skip-networking the default is now to listen only on  </span><br><span class="line"># localhost which is more compatible and is not less secure.  </span><br><span class="line">#bind-address       = 127.0.0.1     #注释掉这一行就可以远程登录了</span><br></pre></td></tr></table></figure>
+<p><strong>不然会报如下错误：</strong></p>
+<p>ERROR 2003 (HY000): Can’t connect to MySQL server on ‘host’ (111)</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://blog.wddog.cn" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 xiaoxie</li>
+      <li><a href="http://blog.wddog.cn">Home</a></li>
+      
+      <li><a href="https://github.com/xiaoxiezaijia">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
