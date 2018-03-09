@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.wddog.cn/"/>
-  <updated>2018-03-09T15:53:00.667Z</updated>
+  <updated>2018-03-09T16:10:48.459Z</updated>
   <id>http://blog.wddog.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于网站多语言的一些实现方案(复制文章)</title>
+    <link href="http://blog.wddog.cn/2018/03/10/%E7%BD%91%E7%AB%99%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%A0%94%E7%A9%B6%E6%8E%A2%E8%AE%A8%E6%96%B9%E6%A1%88/"/>
+    <id>http://blog.wddog.cn/2018/03/10/网站多语言研究探讨方案/</id>
+    <published>2018-03-09T16:02:53.959Z</published>
+    <updated>2018-03-09T16:10:48.459Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于全球化的推进，多语言网站开始流行起来，未来的网站可能至少会有双语（中文/英语），对于多语言网站，我给出如下几种方案，希望想要制作多语言网站的人能够从中找到适合自己的。</p><p>出处: <a href="http://www.ytmp.net/forum.php?mod=viewthread&amp;tid=245&amp;extra=page%3D3" target="_blank" rel="noopener">http://www.ytmp.net/forum.php?mod=viewthread&amp;tid=245&amp;extra=page%3D3</a></p><h3 id="方案一：引入谷歌翻译器"><a href="#方案一：引入谷歌翻译器" class="headerlink" title="方案一：引入谷歌翻译器"></a>方案一：引入谷歌翻译器</h3><p><strong> 此方案博主早先试过了，翻译成英语还行，其他基本看不懂了，要求不是很高的可以试试，还是挺不错了</strong></p><p>谷歌翻译推出了一个在线翻译网站的神器，你可以通过接入谷歌翻译器来实现多语言网站。<br>但是，目前谷歌被墙，所以此方案可能暂时无法实现，未来谷歌回归中国，还是可以使用此方案的。<br>推荐指数：❤❤❤</p><h3 id="方案二：动态设置模板"><a href="#方案二：动态设置模板" class="headerlink" title="方案二：动态设置模板"></a>方案二：动态设置模板</h3><p>即网站使用模板可以动态设置，制作网站的时候，同时制作多个语言版本的模板，栏目和文章都定制（一个中文，一个英文）。原系统模板只能后台设置使用的模板，也就是写入配置文件中，我个人觉得不要修改配置文件为好，所以为了安全，将模板读取修改为读取数据库的数据，这样就可以安全多了。<br>缺点：工作量比较大。<br>推荐指数：❤❤❤❤</p><h3 id="方案三：制作多语言插件（参考wordpress本地化设计）"><a href="#方案三：制作多语言插件（参考wordpress本地化设计）" class="headerlink" title="方案三：制作多语言插件（参考wordpress本地化设计）"></a>方案三：制作多语言插件（参考wordpress本地化设计）</h3><p>这个难度有点大，不过应该是最理想的实现多语言网站的方法。<br>自定义一个翻译方法，比如：_lang()<br>此方法用于翻译文字，将数据传入_lang方法里面，此方法读取语言包，如果有对应语言包，那么将翻译成对应的语言，如果没有则返回字符串。<br>语言包制作：键值对的形式，首选读取网站所有的文字数据，然后对应进行人工翻译，可制作多种语言包，进行相应设定，_lang方法将读取语言包里对应的翻译语言，这样就实现多语言版本。（说起来比较抽象，下面给出个例子）</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">模板页面中：&#123;fun _lang(<span class="string">'世界你好 &lt;--&gt; hello world！'</span>)&#125;<span class="comment">//注：doyo中使用_lang方法</span></span><br><span class="line">Functions.php中：</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">_lang</span><span class="params">($word)</span></span>&#123;</span><br><span class="line">      <span class="comment">//制作一个表，读取表中设定的语言字段，此字段可以前台传入数据进行修改</span></span><br><span class="line">      $lang=DB(<span class="string">'language'</span>)-&gt;select(xxxxx);<span class="comment">//读取当前模板使用的语言</span></span><br><span class="line">      $lanlist=<span class="keyword">require</span>(xxx);<span class="comment">//引入多语言包，键值对的文件，可以是return array($word=&gt;'bbb');</span></span><br><span class="line">      <span class="keyword">if</span>($lanlist[$word])&#123;</span><br><span class="line">          <span class="keyword">return</span> $lanlist[$word]; </span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> $word;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>语言包文件：language.php<br>return array(‘aa’=&gt;’xxx’,’bb’=&gt;’sada’….);//此为举例，语言包可以制作成其它的，看个人喜好。<br>多语言包插件制作就介绍到这里，其中有许多简略部分，因为我也没有制作~<br>推荐指数：❤❤❤</p><p>以上，希望对各位有所帮助~</p>]]></content>
+    
+    <summary type="html">
+    
+      simple
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.wddog.cn/categories/PHP/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.wddog.cn/tags/PHP/"/>
+    
+  </entry>
   
   <entry>
     <title>关于 PHP 无限极分类</title>
@@ -122,9 +144,9 @@
       <category term="Mysql" scheme="http://blog.wddog.cn/categories/Mysql/"/>
     
     
-      <category term="Mysql" scheme="http://blog.wddog.cn/tags/Mysql/"/>
-    
       <category term="PHP" scheme="http://blog.wddog.cn/tags/PHP/"/>
+    
+      <category term="Mysql" scheme="http://blog.wddog.cn/tags/Mysql/"/>
     
   </entry>
   
