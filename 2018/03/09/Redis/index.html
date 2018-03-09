@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Redis 随笔 | 帅气的狗头
+  </title>
+  <meta name="description" content="我们敲代码的不懂这些，，，">
+  
+  <meta name="keywords" content="
+  Redis
+  ">
+  
+  <meta name="author" content="xiaoxie">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1953278525,788409613&amp;fm=27&amp;gp=0.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 6 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 5 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 4 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">帅气的狗头</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    xiaoxie
+
+    <span class="post-date float-right" title="{{moment(1520608963288).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1520608963288).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Redis 随笔</h1>
+    <p>选择目录启动命令： redis-server.exe redis.windows.conf  redis-cli.exe -h 127.0.0.1 -p 6379</p>
+<p>redis 可用来存储字符串，哈希结构，链表，集合，常用来提供数据结构服务</p>
+<p>redis 和 memcached 的一些独特之处</p>
+<ol>
+<li>redis 可以用来做存储，而 memcached 只是 用来做缓存 主要因为 redis 具有持久化的功能</li>
+<li>存储的数据有结构， 对于 memcached 来说，存储的数据，只有一种类型–字符串，而 redis 则可以存储字符串，链表，哈希，集合，有序集合</li>
+</ol>
+<p>+++++++++++++++++++++++++++通用类型操作+++++++++++++++++++++++++++++++++++++++++<br>set 设置值 格式： set key value<br>get 获取值 get key<br>查询， keys <em> keys s</em> keys key   还可使用 ？ * [] 找出键值</p>
+<p>Randomkey 返回随机的一个 key<br>Exists key 判断 key 是否存在<br>type key 判断 key 类型<br>del key 删除一个 key<br>rename key new key给 key 改名<br>renamenx key new key  使用这个命令改成一个已存在的名字时将不会进行 改名</p>
+<p>redis 向我们提供了 16 个库 使用 select 0~15<br>move key 1 移动这个键值对到 1 号数据库<br>redis 默认是无生命周期的 -1 不存的也返回 -1  永久有效<br>ttl key 查询生命周期 返回过期的秒数 已过期， 永久有效的都返回-1 2.8 后 不存在的返回-2<br>expire key 以秒数来设置生命周期  pexpire以毫秒为单位 ptti 一毫秒为单位返回生命周期<br>persist key 把他变为永久有效</p>
+<p>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+<p>============================数据格式的操作======================================<br>String： 字符串:</p>
+<p>在设置时，直接指定过期时间：<br>set key value ex 秒数 px 毫秒 [nx] 【xx】<br>注：ex,px 不能同时写，否则以后面有效期为准<br>nx 当key 不存在时执行<br>xx 存在时执行<br>一次设置多个值：<br>mset multi set<br>格式： mset a 1 b 2 c 3</p>
+<p>mget key1 key2  一次获取多个键值</p>
+<p>setrange key # 要替换的值</p>
+<p>append key value 往值后面添加<br>getrange key start stop  // 获取值得一小部分</p>
+<p>getset 获取旧值并设置新值</p>
+<p>用在秒杀资格<br>incr  key 将值加一<br>decr  key 将值减一</p>
+<p>incrby key 5.. 可设置每次增加多少<br>decrby key 5..</p>
+<p>incrbyfloat key 0.5 浮点数增加</p>
+<h1 id="在-位-上做操作"><a href="#在-位-上做操作" class="headerlink" title="在 位 上做操作"></a>在 位 上做操作</h1><p>A ASCLL  65 0100 0001<br>a ASCLL  97 0110 0001<br>setbit:<br>格式： setbit key 偏移量 1|0   offset(偏移量) 512MB  值为 2^32-1 </p>
+<p>flushdb // 清楚所有数据</p>
+<hr>
+<p>link（list）  :  链表操作：</p>
+<p>单链表 ， 双向链表， 循环链表<br>key: 都是一个<br>lpush : 格式 lpush key value 加入到链表头部（l|left 左边）<br>rpush ：格式 rpush key value 加入到链表尾部（r|reft 右边）</p>
+<p>rpop  : 格式：rpop key 从链表尾部弹出（删除）一个值<br>lpop  : 格式：lpop key 从链表首（左）部弹出（删除）一个值</p>
+<p>lrange: (linkrange) //范围取值，查看链表值<br>    格式： lrange key 0 2  (从0开始取出第一个)</p>
+<p>lrem : lrem key count value  lrem name (2) xiaoming  删除几个 整数从左开始 -数从右边开始</p>
+<p>ltrim: ltrim key 2 5 截取一段 在获取一次，截取在重新赋值给key<br>lindex: lindex key # 去除第几个，下标从 0 开始<br>llen： llen key 获取长度</p>
+<p>linsert : linsert key after|before search value沿着链表找到某个值，在前|后 插入值</p>
+<p>rpoplpush : rpoplpush key1 key2右边弹出，左边插入一个  一个链表右边的移到另一个链表的左边 </p>
+<p>brpop,blpop:</p>
+<p>brpop blpop key timeout(时间为秒)  等待 pop  (使用场景ajax长轮询时)</p>
+<hr>
+<p>（国外大型网站使用）</p>
+<p>位图法统计活跃用户：</p>
+<p> 1亿用户，活跃用户非活跃用户，如何记录用户的登陆信息，如何查询活跃用户，比如一周内登陆三次的</p>
+<p> 使用redis高效解决： 使用 位 1亿个位登陆的置于 1 反之 0</p>
+<p> 假设只有 7 个用户 uid 分别位 1,2,3,4,5,6,7</p>
+<p> 周一 0 1 0 1 0 0 0 1  //首位为0 代表正数 这里记录一天的登陆的情况<br> 周二 0 1 1 1 0 0 1 1<br> 周三 0 1 1 1 0 1 0 1<br> 周四 0 1 0 1 1 0 0 1</p>
+<p> 统计： 连续登录的就做 and 操作 10000001 利用 redis 的 setbit 操作</p>
+<p> 星期一：<br> setbit mon 100000000 0<br> setbit mon 3 1 谁登陆把谁置为1</p>
+<p> 星期二：<br> set thur 1000000000 0<br> set thur 2  1</p>
+<p> bitop: and or xor not (逻辑并，逻辑或，逻辑异或，逻辑非);<br> 格式为： bitop and destkey key [key …] 将结果保存在 destkey 中</p>
+<p> 做一个 and 运算得到1 就代表连续登陆一周</p>
+<p> 优点： </p>
+<ol>
+<li>节约空间，一亿人每天的登陆情况，用一亿 bit 约 1200Wbyte 约 10M 的字符就能表示</li>
+<li><p>计算快</p>
+<p>=================</p>
+</li>
+</ol>
+<p>set（集合） 结构： </p>
+<p>特点：</p>
+<ol>
+<li>无序性，｛1,2｝=={2,1}</li>
+<li>唯一性 独一无二</li>
+<li>确定性</li>
+</ol>
+<p>sadd key value1 value2<br>往集合内添加元素</p>
+<p>srem key value1 value2<br>删除集合中value1 value2的元素，返回值，除去不存在的值后，返回删除的个数</p>
+<p>srandmember key<br>返回集合key 中的任意一个元素</p>
+<p>spop key<br>返回并且删除集合中随意的一个元素</p>
+<p>smembers key<br>返回集合中的所有元素</p>
+<p>sismember key value<br>判断 value 是否在 key 集合中， 存在为 1  反之 0</p>
+<p>smove source dest value<br>把source 集合中的 value 删除 并 添加到 dest 集合中</p>
+<p>scard key<br>返回集合中元素的个数</p>
+<p>sinter key1 key2 key3<br>求出 key1 key2 key3 中的交集，并返回</p>
+<p>sinterstore dest key1 key2 key3<br>求出 key1 key2 key3 中的交集，并返回给dest</p>
+<p>sunion key1 key2…<br>求出 key1 key2 key..的并集并返回</p>
+<p>sdiff key1 key 2 key ..<br>求出他们的差集 </p>
+<hr>
+<p>有序集合： order set：</p>
+<p>score(序) 声明时定义 score  确定其序</p>
+<p>zadd score1 value1 score2 value2<br>添加元素</p>
+<p>zrem key value1 value2<br>删除元素<br>zremrangebyscore key min max<br>按照 score 来删除元素 删除 min 与 max 之间的<br>zremrangbyrank key start end<br>按排名删除元素删除名次在 start  与 end 之间的</p>
+<p>zrank key member<br>查看 member 的排名（升序）<br>zrevrank key member<br>查看 member 的排名（降序）</p>
+<p>zrange key start stop<br>查询排序后第start 名到第stop名 的zrange key 1 3 withscores 另外在取出score </p>
+<p>zrangebyscore key score1 score2<br>取出 score1 和 score2 之间的值 zrangebyscore key score1 score2  limit 1 2 跳过第一个在取出两个</p>
+<p>zcard key<br>返回元素个数</p>
+<p>zcount key min max<br>返回min max 之间的元素个数</p>
+<p>(zinsterstore) destination numkeys key1[key2…]                    zunionstore(并集)<br>weights wight [weight..]  // 权重 我的一块顶你五块<br>aggregate sum|min|max<br>求key1 key2的交集， key1 key2的权重分别是weight1 weight2<br>聚合方法使用：sum min max<br>聚合结果保存在dest 集合中</p>
+<hr>
+<p>哈希： hash （相当于php的关联数组合）</p>
+<p>hset : hset key field value<br>设置<br>(关联数组)<br>field value<br>name  lisi<br>age   20<br>height 174</p>
+<p>hmset:<br>hmset key field value name  lisi<br>一次设置多个</p>
+<p>hgetall:<br>hgetall key<br>获取键中所有元素</p>
+<p>hget:<br>hget key name<br>一次获取一个</p>
+<p>hmget：<br>hmget key name field　<br>一次获取多个</p>
+<p>hdel：<br>hdel key name<br>删除一个</p>
+<p>hlen:<br>hlen key<br>有几个域（键）</p>
+<p>hexists：<br>hexists key name<br>name是否存在</p>
+<p>hincrby:<br>hincby key field value<br>增长一个<br>hincrbyfloat:<br>hkeys：</p>
+<hr>
+<p>事务及锁：<br>mysql :启用事务： start transaction<br>                rollback 回滚</p>
+<p>redis 事务： 不支持回滚，命令执行了就执行了</p>
+<p>开启： multi (多)  之后的命令都放到待执行队列中<br>exec： 运行提交<br>输入错误的命令后 队列中的命令就都不能执行，<br>如果命令正确，类型不正确，将跳过那条语句，执行其他的<br>discard 清空执行队列中命令</p>
+<p>监视：</p>
+<p>悲观锁操作时上锁，只有我能操作</p>
+<p>乐观锁 注意有没有更改值，有就不执行   (秒杀)<br>watch key 监视着这个值<br>unwatch 取消所有监视的 key</p>
+<hr>
+<p>(适合做在线聊天，消息推送）群聊广告<br>消息发布，订阅：<br>声明一个频道<br>订阅新闻频道<br>发布新闻内容</p>
+<p>publish news “today is xxx”  创建一个频道news 发布<br>subscribe news  收听频道news</p>
+<p>psubscribe 可以通配 news* 的全部监听 （以模式一次匹配多个频道）</p>
+<p>pubsub 2.8.0 列出当前活动的频道 发布端 收听端口 查看当前活动频道，发布者，监听者</p>
+<p>+++++++++++++++++++++++=============<br>redis两种持久化： rdb aof 可同时存在<br>rdb快照持久化：</p>
+<p>把数据存储于断电后不会丢失的设备中，通常是硬盘<br>常见的持久化方式：</p>
+<p>主从：通过从服务器保存和持久化，mongodb的replication sets配置<br>日志：操作生成相关日志，并通过日志来回复数据<br>couchdb对于数据内容，不修改,只追加，则文件本身就是日志，不会丢失数据</p>
+<p>rdb工作原理：<br>每隔 N 分钟或 N 次写操作后，从内存 dump 数据形成 rdb 文件，压缩，放在备份目录 参数配置（时间|次数、压缩、目录）</p>
+<p>rdb 快照相关参数：</p>
+<p>save 900 1 ！刷新快照到硬盘中，必须满足两者要求才会触发，即 900 秒后至少 1 个关键字发生变化<br>save 300 10 ! 必须是 300 秒后 至少 10 个关键字发生变化<br>save 60 10000 ! 必须是 60 秒后，至少 10000 个关键字发生变化<br>stop-writes-on-bgsave-error yes ! 后台存储错误停止写<br>rdbcompression yes ! 使用 LZF 压缩 rdb 文件<br>rdnchecksum yes ! 存储和加载 rdb 文件时校验<br>dbfilename dump.rdb ! 设置 rdb  文件名<br>dir ./ ! 设置工作目录，rdb 文件会写入该目录</p>
+<p>redis-benchmark 测试性能 （crud）<br>-n 10000 (执行 10000 条命令)<br>-hlep -h 帮助</p>
+<hr>
+<p>aof:<br>set<br>append -》 redis 主进程 -》 后台日志程序<br>                                        -》 aof 文件</p>
+<p>配置文件：</p>
+<p>appendonly no|yes 是否打开 aof 日志功能<br>appendfsync always 每一个命令，都立即同步到 aof 安全速度慢<br>appendfsync everysec 折中方法，每秒写一次<br>appendfsync no 写入工作交给操作系统，由操作系统判断缓冲区大小，统一写入到 aof 同步效率低，速度快</p>
+<p>no-appendfsync-no-rewrite yes 正在导出 rdb 快照时的过程中，要不要停止 aof<br><em>auto-aof-rewrite-percentage 100  aof 文件大小比起上次重写时的大小，增长 100% 时重写
+</em>auto-aof-rewrite-min-size 64mb aof 文件，至少超过64MB时，重写</p>
+<p>注： 在dump rdb 过程中，aof 停止同步，会丢失吗？<br>不会，所有操作的缓存在队列里，dump 完成后，统一操作</p>
+<p>注：如果 rdb 文件 aof 文件都存在，优先用谁来恢复数据<br>aof</p>
+<p>注：两者是否可以同时用<br>可以，而且推荐这么用</p>
+<p>注：恢复时 rdb aof 那个恢复时间快<br>rdb 因为其是数据的映射，直接载入到内存，而 aof 是命令，需要逐条运行</p>
+<p>当一个值 100 次 incr 将产生  100 次记录， 下次恢复时从1次开始， 如何把它 直接到 100 次<br>在某个瞬间逆化成命令 incr age 100次　set age 100<br>注：aof 重写？<br>aof 重写是把内存中的数据逆化成命令，写入 aof 日志里，以解决 aof 日志过大问题<br>*（标识，真实文件中不存在）的配置文件 到了这个大小获取最终值，整个 aof  大小将减小<br>bgrewriteaof 命令重写</p>
+<p>+++++++++++++++++===========================</p>
+<p>redis 服务器端命令：</p>
+<p>time 服务器时间<br>dbsize 当前数据库 key 的数量</p>
+<p>++++++++++++=================================</p>
+<p>redis 主从配置： 服务器集群<br>集群的作用：</p>
+<ol>
+<li>主从备份，防止主机宕机</li>
+<li>读写分离，分担 master 的任务</li>
+<li>任务分离，如从服分别分担备份工作与计算工作</li>
+</ol>
+<p>两种方式： 环形，线形<br>线形的好处 ，直接切换到 slave1 不需要在链接 slave2 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    			sync[自动]		   </span><br><span class="line">	   	&lt;----------------	   </span><br><span class="line">         		dump 出rdb            </span><br><span class="line">master     	----------------&gt;        slave  </span><br><span class="line">        	缓冲的aof         </span><br><span class="line">           	----------------&gt;      </span><br><span class="line">                                   </span><br><span class="line">      		replicationFeedSlaves    </span><br><span class="line">	  	----------------&gt;</span><br></pre></td></tr></table></figure>
+<p>: slave 连接到master 然后自动告知 同步（sync）一下，回送 数据映射的rdb 文件 ，在传rdb文件时，同时缓存的命令在 aof 中, 再同步到 slave<br>一个进程保持联系</p>
+<p>集群配置：</p>
+<ol>
+<li>关闭 rdb 快照 (把备份工作交给 salve)</li>
+<li>可以开启 aof </li>
+</ol>
+<p>salve 设置：</p>
+<ol>
+<li>声明 salve-of</li>
+<li>配置密码[如果master有密码]</li>
+<li>[某一个]salve 打开 rdb 快照功能</li>
+<li>配置是否只读 [salve-read-only]</li>
+</ol>
+<p>复制配置文件<br>修改配置文件： redis6380.conf  redis6381.conf 修改其中的 pidfile /..为redis63<del>.pid    port: 为63</del><br>设置slave : 打开slaveof 添加ip 和端口 ：本地的话使用 127.0.0.1<br>是否只读 salve-read-only no|yes<br>只其中一个开启 rdb 快照，其余关闭</p>
+<p>启动从服务器 redis-server redis6380.conf</p>
+<p>redis-cli -p 6380 连接6380端口<br>添加密码： requirepass 密码<br>进入后使用 auth 密码<br>设置密码后，从服务器必须有密码才能连接到主服务器<br>masterauth 密码</p>
+<p>主从复制缺陷：</p>
+<p>每次slave断开后(无论是主动的还是网络故障)再连接 master<br>都要 master 全部 dump 出来 rdb 再 aof 即同步的过程都要重新执行一遍<br>所以记住，多来 slave 不要一下全部启动，否则 master 可能 IO剧增 </p>
+<hr>
+<p>运维常用命令：</p>
+<p>time: 返回两个值 一个命令执行时的时间戳，一个执行完毕后过去多少微秒<br>dbsize : 当前库中 有多少 key<br>bgrewriteaof: 后台进程重写 aof<br>bgsave: 后台保存 rdb 快照<br>save: 保存 rdb 快照<br>lastsave: 上次保存时间 返回时间戳<br>slaveof: 设为 slave  服务器<br>flushall: 清空所有 DB<br>flushdb: 清空当前 DB<br>shutdown: save|nosave 断开连接，关闭服务器<br>slowlog: 显示慢查询<br>info: 显示服务器信息<br>config get: 获取配置信息<br>config set: 设置配置信息<br>monitor: 打开控制台<br>sync: 主从同步<br>client list: 客户端列表<br>client kill 关闭某个客户端<br>client setname 为某个客户端设置名字<br>client getname 获取客户端名字</p>
+<p>慢日志：  slowlog</p>
+<p>多慢才叫慢<br>由slowlog-log-slower-than 10000 来指定，单位微妙</p>
+<p>服务器存储多少条慢查询的记录：</p>
+<p>slowlog-max-len 128 来做限制<br>slowlog get N 获取慢日志</p>
+<p>===================================</p>
+<p>aof 恢复 与 rdb 服务器迁移</p>
+<p>当不小心 flushdb、 flushall时，立即shudowm nosave(这条任务不要写到aof文件中),防止其他访问，导致aof重写，到aof文件中删除这条命令<br>redis-check-dump 检查rdb文件是否存在错误<br>（重）在 redis 进程运行时，rdb 处于打开状态，这时因为占据同样的句柄，rdb 不可用</p>
+<hr>
+<p>sentinel 运维监控（官方自带的）</p>
+<p>手动操作： config get 选项</p>
+<p>config set 选项</p>
+<p>运行时：更改 master-slave<br>修改一台 slave 为 master</p>
+<p>1) 命令该服务，不做其他 redis 的 slave<br>命令：slaveof no one</p>
+<p>2) 修改 salve-read-only 为 no<br>命令：config set salve-read-only  no<br>其他的 slave 再指向 这个 new master A </p>
+<p>1）命令该服务为 new master A 的 slave<br>命令: slaveofIP port 注：slaveof 127.0.0.1 6379</p>
+<p>sentinel做的就是以上操作，不断与 master 通信， 当master 不回应，就切换其中一个为master</p>
+<p>监控配置：</p>
+<p>sentinel monitor def_master 127.0.0.1 6379 2(结合三十秒，监控到2次连不上才是失效)<br>sentinel auth-pass def-master 012_345^678-90 master 要不要密码</p>
+<p>！master 被当前 sentinel 实例 认定为 失效的间隔时间<br>！如果当前的 sentinel 与 master 直接的通讯中，在指定的时间内，没有响应或者响应错误代码，那么当前 sentinel 就认为<br>master 失效，（SDOWN 主观失效）</p>
+<p><mastername><millseconds><br>默认为 30 秒<br>sentinel down-after-millseconds def_master 30000</millseconds></mastername></p>
+<p>当前 sentinel 实例是否允许实施 failover (故障转移)<br>no 表示当前 sentinel 为观察者(只参与投票，不参与实施 failover )<br>全局中至少有一个yes<br>sentinel can-failover def_master yes 监控到失效 允不允许把slave 改为master 在多个sentinel监控时，只一个有权利修改为master<br>failover notification-script mymaster /var/redis/notify.sh<br>parallel-syncs mymaster 1  同时几台连接到新的 master (如果瞬间全部连接，ＩＯ激增，容易GG)</p>
+<p>配置文件： sentinel.conf （windows好像没有）<br>redis-server sentinel.conf –sentinel 启动sentinel 进程</p>
+<p>在 配置文件中，slave-priority 100 数字越小优先级最高 改完优先把优先级高的作为新的 master </p>
+<p>++++++++++++++++++++++++++++++++++++</p>
+<p>实际开发技巧：key-value 与传统的 关系型数据库有何关联</p>
+<p>如何 key 设计</p>
+<p>书签系统： create table book(<br>    book_id int,<br>    title char(20)<br>)engine myisam charset utf8;</p>
+<p>redis 键值设置：<br>1）把表名转换为key 前缀<br>2）主键<br>3）主键值<br>4) 写要存储的列名<br>set user:id:4:name 小明</p>
+<p>无底洞效应:…</p>
+<p>如何使用username 查询，只能冗余信息<br>set user:username:lisi:userid 9 维护一个相互引用的数据<br>通过 userid 查 name,mail ,age …<br>不会导致很多冗余，只是 保存 id</p>
+<p>世上安得双修法，不负如来不负卿。。</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://blog.wddog.cn" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 xiaoxie</li>
+      <li><a href="http://blog.wddog.cn">Home</a></li>
+      
+      <li><a href="https://github.com/xiaoxiezaijia">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

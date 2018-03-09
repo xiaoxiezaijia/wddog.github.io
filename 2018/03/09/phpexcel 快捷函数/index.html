@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    据 PHPExcel 封装的一个快捷函数,解决输出 Excel 代码的重复 | 帅气的狗头
+  </title>
+  <meta name="description" content="我们敲代码的不懂这些，，，">
+  
+  <meta name="keywords" content="
+  PHP
+  ">
+  
+  <meta name="author" content="xiaoxie">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1953278525,788409613&amp;fm=27&amp;gp=0.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 6 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 5 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 4 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">帅气的狗头</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    xiaoxie
+
+    <span class="post-date float-right" title="{{moment(1520609755920).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1520609755920).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>据 PHPExcel 封装的一个快捷函数,解决输出 Excel 代码的重复</h1>
+    <p>关于 phpexcel 数据写入的一层封装 使数据写入更加简便<br>使用方法如下 tp5 中 把函数放入公共函数 引入 phpexcel 类即可<br>使用极其简单</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 此函数依赖 PHPExcel 使用方法可参考 admin\controller\CustomerController.php-&gt;outputExcel </span></span><br><span class="line"><span class="comment"> * 快捷方法 添加excel 数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> PHPExcel $phpexcelObj 对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> Array $title 表格 列字段名 必需</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> Array $data 表格数据 必须按照 标题位置存放 必需</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Object $objSheet # 数据对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">exceloutput</span><span class="params">( $phpexcelObj,$title=array<span class="params">()</span>, $data=array<span class="params">()</span>)</span></span>&#123;</span><br><span class="line">     <span class="keyword">if</span>( !$phpexcelObj &amp;&amp; !<span class="keyword">empty</span>($title) &amp;&amp; !<span class="keyword">empty</span>($data) )&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment"># 加载扩展库 extend/phpexcel/PHPExcel.php</span></span><br><span class="line">     $phpexcel = $phpexcelObj;    <span class="comment">// 实例化等同与新建一个excel 文件</span></span><br><span class="line">     $objSheet = $phpexcel-&gt;getActiveSheet(); <span class="comment">// 获取当前活动的 sheet 工作区</span></span><br><span class="line">     $objSheet-&gt;setTitle(<span class="string">'demo'</span>); <span class="comment">// 给当前活动的 sheet 设置名称</span></span><br><span class="line">     $column_names = [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="string">'D'</span>, <span class="string">'E'</span>, <span class="string">'F'</span>, <span class="string">'G'</span>, <span class="string">'H'</span>, <span class="string">'I'</span>, <span class="string">'J'</span>, <span class="string">'K'</span>, <span class="string">'L'</span>, <span class="string">'M'</span>, <span class="string">'N'</span>, <span class="string">'O'</span>, <span class="string">'P'</span>, <span class="string">'Q'</span>, <span class="string">'R'</span>, <span class="string">'S'</span>,<span class="string">'T'</span>, <span class="string">'U'</span>, <span class="string">'V'</span>, <span class="string">'W'</span>, <span class="string">'X'</span>, <span class="string">'Y'</span>, <span class="string">'Z'</span>];</span><br><span class="line"></span><br><span class="line">     $curC = <span class="number">-1</span>; <span class="comment"># 列表位置 A-Z AA AB ... BA BB...</span></span><br><span class="line">     $strColumn  = <span class="string">''</span>; <span class="comment"># 要拼接的字符 通过 $curC</span></span><br><span class="line">     <span class="keyword">for</span>( $i=<span class="number">0</span>; $i&lt;count($title); $i++ )&#123;</span><br><span class="line">         <span class="keyword">if</span>( $i&lt;count($column_names) )&#123; <span class="comment"># 当列小于 数组长度时</span></span><br><span class="line">             $strColumn = $column_names[$i].<span class="string">"1"</span>; <span class="comment"># 列 A1 B1 C1 ...</span></span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;                                </span><br><span class="line">             <span class="keyword">if</span>((($i+<span class="number">1</span>)%count($column_names)) == <span class="number">1</span>)&#123; <span class="comment"># 当前 使用列 每循环一次列就 选择 下一个作为 开头 AA AB AC... BA BB BC...</span></span><br><span class="line">                 $curC++;</span><br><span class="line">             &#125;</span><br><span class="line">             $strColumn = $column_names[$curC].$column_names[$i%count($column_names)].<span class="string">"1"</span>; <span class="comment"># 大于 26 个字母后的列 拼接</span></span><br><span class="line">         &#125;</span><br><span class="line">         $objSheet-&gt;setcellValue($strColumn,$title[$i]); <span class="comment"># 设置 标题</span></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     $j = <span class="number">2</span>; <span class="comment"># 当前行</span></span><br><span class="line">     <span class="comment"># 写入内容</span></span><br><span class="line">     <span class="keyword">foreach</span>( $data <span class="keyword">as</span> $val )&#123;</span><br><span class="line">         $curC = <span class="number">-1</span>; <span class="comment"># 列表位置 A-Z AA AB ... BA BB...</span></span><br><span class="line">         $strColumn  = <span class="string">''</span>; <span class="comment"># 要拼接的字符 通过 $curC</span></span><br><span class="line">         </span><br><span class="line">         <span class="keyword">for</span>( $i=<span class="number">0</span>; $i&lt;count($title); $i++ )&#123;</span><br><span class="line">             <span class="keyword">if</span>( $i&lt;count($column_names) )&#123; <span class="comment"># 当列小于 数组长度时</span></span><br><span class="line">                 $strColumn = $column_names[$i].$j; <span class="comment"># 列</span></span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 <span class="keyword">if</span>((($i+<span class="number">1</span>)%count($column_names)) == <span class="number">1</span>)&#123; <span class="comment"># 当前 使用列 每循环一次列就 选择 下一个作为 开头 AA AB AC... BA BB BC...</span></span><br><span class="line">                     $curC++;</span><br><span class="line">                 &#125;</span><br><span class="line">                 $strColumn = $column_names[$curC].$column_names[$i%count($column_names)].$j; <span class="comment"># 大于 26 个字母后的列 拼接</span></span><br><span class="line">             &#125;</span><br><span class="line">             $objSheet-&gt;setcellValue($strColumn,$val[$title[$i]]); <span class="comment"># 设置 标题</span></span><br><span class="line">         &#125;</span><br><span class="line">         $j++; <span class="comment"># 移到下一行</span></span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> $phpexcelObj;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>在控制器方法中调用以下代码 数据 根据具体业务查询</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询所有列名</span></span><br><span class="line">$columns    = Db::query(<span class="string">"select column_name from information_schema.columns where table_name='"</span>.config(<span class="string">'database.prefix'</span>).<span class="string">"customer'"</span>);</span><br><span class="line">$data       = Db::table(config(<span class="string">'database.prefix'</span>).<span class="string">"customer"</span>)-&gt;select(); <span class="comment"># 查询所有数据</span></span><br><span class="line">$title      = <span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">foreach</span>( $columns <span class="keyword">as</span> $column )&#123; <span class="comment"># 列名格式化成数组</span></span><br><span class="line">    $title[] = $column[<span class="string">'column_name'</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// dump($title);</span></span><br><span class="line"><span class="comment">// dump($data);</span></span><br><span class="line">Loader::import(<span class="string">'phpexcel.PHPExcel'</span>); <span class="comment"># 加载扩展库 extend/phpexcel/PHPExcel.php</span></span><br><span class="line">$PHPExcel = <span class="keyword">new</span> \PHPExcel();</span><br><span class="line">$phpexcelObj = exceloutput( $PHPExcel,$title, $data); <span class="comment"># 使用 函数添加数据 返回工作区数据对象</span></span><br><span class="line">$PHPWriter = \PHPExcel_IOFactory::createWriter($phpexcelObj,<span class="string">"Excel2007"</span>); <span class="comment"># 写入数据</span></span><br><span class="line">header(<span class="string">'Content-Disposition: attachment;filename="表单数据.xlsx"'</span>); <span class="comment"># 告知浏览器输出文件 文件吗 为 表单数据</span></span><br><span class="line">header(<span class="string">'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'</span>); <span class="comment"># 输出格式</span></span><br><span class="line">$PHPWriter-&gt;save(<span class="string">"php://output"</span>); <span class="comment">//表示在$path路径下面生成demo.xlsx文件</span></span><br></pre></td></tr></table></figure>
+<p>结尾语： 因技术有限，东西是很龊的，但是，多少还是能用的 —&gt; 想批评我，没门</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://blog.wddog.cn" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 xiaoxie</li>
+      <li><a href="http://blog.wddog.cn">Home</a></li>
+      
+      <li><a href="https://github.com/xiaoxiezaijia">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
