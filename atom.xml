@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.wddog.cn/"/>
-  <updated>2018-03-16T08:39:34.056Z</updated>
+  <updated>2018-03-19T06:35:56.476Z</updated>
   <id>http://blog.wddog.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>腾讯云centos7 搭建 FTP.md</title>
+    <link href="http://blog.wddog.cn/2018/03/19/%E8%85%BE%E8%AE%AF%E4%BA%91centos7%20%E6%90%AD%E5%BB%BA%20FTP/"/>
+    <id>http://blog.wddog.cn/2018/03/19/腾讯云centos7 搭建 FTP/</id>
+    <published>2018-03-19T06:18:40.705Z</published>
+    <updated>2018-03-19T06:35:56.476Z</updated>
+    
+    <content type="html"><![CDATA[<p>下面开始介绍 FTP 的搭建过程，异常简单</p><h3 id="使用-yum-安装-vsftpd"><a href="#使用-yum-安装-vsftpd" class="headerlink" title="使用 yum 安装 vsftpd"></a>使用 yum 安装 vsftpd</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install vsftpd // 这样就安装好了 服务</span><br><span class="line"></span><br><span class="line">service vsftpd start // 启动 ftp 服务</span><br></pre></td></tr></table></figure><h3 id="修改配置文件-现在配置文件的修改很简单"><a href="#修改配置文件-现在配置文件的修改很简单" class="headerlink" title="修改配置文件(现在配置文件的修改很简单)"></a>修改配置文件(现在配置文件的修改很简单)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/vsftpd/vsftpd.conf</span><br><span class="line"></span><br><span class="line">// 找到 anonymous_enable=YES (可输入 /anonymous 搜索定位)</span><br><span class="line"></span><br><span class="line">// 修改为 anonymous_enable=NO 不允许匿名登录</span><br><span class="line"></span><br><span class="line">// 找到 去掉前面的 # (这三个一般都在一起)</span><br><span class="line"></span><br><span class="line"># chroot_local_user=YES</span><br><span class="line"></span><br><span class="line"># chroot_list_enable=YES</span><br><span class="line"></span><br><span class="line"># chroot_list_file=/etc/vsftpd/chroot_list // 这里面需放入创建的 ftp 用户名里面存在的用户才能登录</span><br><span class="line"></span><br><span class="line">// 最后 保存文件</span><br><span class="line"></span><br><span class="line">shift+: 输入 wq 保存退出</span><br></pre></td></tr></table></figure><h3 id="创建用户-并-重启-ftp"><a href="#创建用户-并-重启-ftp" class="headerlink" title="创建用户 并 重启 ftp"></a>创建用户 并 重启 ftp</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 以下操作需要 root 权限</span><br><span class="line"></span><br><span class="line">cd / 切换到根目录</span><br><span class="line"></span><br><span class="line">mkdir ftp // 创建 ftp 用户的操作目录</span><br><span class="line"></span><br><span class="line">chmod -R 777 ftp // 设置权限为全部</span><br><span class="line"></span><br><span class="line">// 创建用户 目录为 /ftp 设置为 ftp 用户 -s /sbin/nologin 不可登录服务器 用户名 test</span><br><span class="line"></span><br><span class="line">useradd -d /ftp -g ftp -s /sbin/nologin test</span><br><span class="line"></span><br><span class="line">// 为用户设置密码</span><br><span class="line"></span><br><span class="line">passwd test </span><br><span class="line"></span><br><span class="line">输入一次密码</span><br><span class="line">确认密码</span><br><span class="line"></span><br><span class="line">vim /etc/vsftpd/chroot_list // 打开用户列表文件</span><br><span class="line"></span><br><span class="line">按 i 输入刚才创建的 用户 test 没增加一个用户都得在此文件添加用户名 并重启 vsftpd 服务 </span><br><span class="line"></span><br><span class="line">重启 ftp </span><br><span class="line"></span><br><span class="line">service vsftpd restart</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      simple
+    
+    </summary>
+    
+      <category term="centos" scheme="http://blog.wddog.cn/categories/centos/"/>
+    
+    
+      <category term="腾讯云" scheme="http://blog.wddog.cn/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
+    
+      <category term="Linux" scheme="http://blog.wddog.cn/tags/Linux/"/>
+    
+      <category term="FTP" scheme="http://blog.wddog.cn/tags/FTP/"/>
+    
+  </entry>
   
   <entry>
     <title>阿里云ECS centos7.3 搭建 lamp 环境</title>
