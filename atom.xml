@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.wddog.cn/"/>
-  <updated>2018-03-19T06:47:18.437Z</updated>
+  <updated>2018-04-05T11:23:11.195Z</updated>
   <id>http://blog.wddog.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>元am安装php7+swoole扩展</title>
+    <link href="http://blog.wddog.cn/2018/04/05/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85php7+swoole%E6%89%A9%E5%B1%95/"/>
+    <id>http://blog.wddog.cn/2018/04/05/源码安装php7+swoole扩展/</id>
+    <published>2018-04-05T11:14:40.917Z</published>
+    <updated>2018-04-05T11:23:11.195Z</updated>
+    
+    <content type="html"><![CDATA[<p>其实对玩过 linux 的人来讲这是不需要来讲的，但是对我这种 low 货，还是很有用的，所以想了想还是决定写成一篇博客</p>]]></content>
+    
+    <summary type="html">
+    
+      simple
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://blog.wddog.cn/categories/PHP/"/>
+    
+    
+      <category term="PHP" scheme="http://blog.wddog.cn/tags/PHP/"/>
+    
+      <category term="Linux" scheme="http://blog.wddog.cn/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>腾讯云centos7 搭建 FTP</title>
@@ -34,9 +58,9 @@
       <category term="centos" scheme="http://blog.wddog.cn/categories/centos/"/>
     
     
-      <category term="腾讯云" scheme="http://blog.wddog.cn/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
-    
       <category term="Linux" scheme="http://blog.wddog.cn/tags/Linux/"/>
+    
+      <category term="腾讯云" scheme="http://blog.wddog.cn/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/"/>
     
       <category term="FTP" scheme="http://blog.wddog.cn/tags/FTP/"/>
     
