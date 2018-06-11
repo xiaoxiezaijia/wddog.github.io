@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.wddog.cn/"/>
-  <updated>2018-04-05T12:14:20.498Z</updated>
+  <updated>2018-06-11T15:26:52.237Z</updated>
   <id>http://blog.wddog.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>服务器性能优化</title>
+    <link href="http://blog.wddog.cn/2018/06/11/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    <id>http://blog.wddog.cn/2018/06/11/服务器性能优化/</id>
+    <published>2018-06-11T15:25:20.814Z</published>
+    <updated>2018-06-11T15:26:52.237Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="访问速度优化"><a href="#访问速度优化" class="headerlink" title="访问速度优化"></a>访问速度优化</h3><pre><code>1. 页面静态化 --&gt; 定时任务 定时抓取， 生成 静态化 html 文件 提供给用户访问</code></pre><h3 id="优化单机性能-–-gt-页面加载速度"><a href="#优化单机性能-–-gt-页面加载速度" class="headerlink" title="优化单机性能 –&gt; 页面加载速度"></a>优化单机性能 –&gt; 页面加载速度</h3><pre><code>1. nginx 减少页面大小 启用 gzip 压缩 -&gt;服务器运算开销加大    配置如下：                gzip on;                gzip_min_length 1k;                gzip_buffers 4 16k;                gzip_comp_level 6;                geip_types text/plain application/javascript text/css application/xml;2. 减少资源请求数量，合并和压缩 css ,js 等 -&gt; minify php 写的 重点是合并    minify：把 css 和 js 压缩和消减 去掉空格回车符等等，以及把多个 css js 文件整合到一个文件3. 设置浏览器缓存 利用 CDN 加速    Nginx 配置文件缓存：                        location ~.*\.(js|css|jpg|jpeg|gif|png)$ { # 指定缓存文件类型                            expires 7d; # 设置浏览器过期时间                        }</code></pre><h3 id="提高接口速度-gt-js-获取-cookie-判断是否登录"><a href="#提高接口速度-gt-js-获取-cookie-判断是否登录" class="headerlink" title="提高接口速度  -&gt; js 获取 cookie 判断是否登录"></a>提高接口速度  -&gt; js 获取 cookie 判断是否登录</h3><pre><code>1. 接口静态化：                后面的请求，当秒杀商品已经抢完， 其后的抢购毫无意义                快速总终止的逻辑放到前面                增加冗余的定制化数据，保证程序更快速                索引，数据规模， redis 缓存2. 代码优化：</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      simple
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://blog.wddog.cn/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://blog.wddog.cn/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>源码安装php7+swoole扩展</title>
@@ -220,9 +242,9 @@
       <category term="Mysql" scheme="http://blog.wddog.cn/categories/Mysql/"/>
     
     
-      <category term="Mysql" scheme="http://blog.wddog.cn/tags/Mysql/"/>
-    
       <category term="PHP" scheme="http://blog.wddog.cn/tags/PHP/"/>
+    
+      <category term="Mysql" scheme="http://blog.wddog.cn/tags/Mysql/"/>
     
   </entry>
   
