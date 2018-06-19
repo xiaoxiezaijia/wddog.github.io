@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    php设计模式-State(状态模式) | 帅气的狗头
+  </title>
+  <meta name="description" content="我们敲代码的不懂这些，，，">
+  
+  <meta name="keywords" content="
+  Design Patterns
+  ">
+  
+  <meta name="author" content="xiaoxie">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1953278525,788409613&amp;fm=27&amp;gp=0.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 33 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 12 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 7 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">帅气的狗头</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    xiaoxie
+
+    <span class="post-date float-right" title="{{moment(1529411426948).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1529411426948).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>php设计模式-State(状态模式)</h1>
+    <p>本文为大家介绍的是php设计模式 中的State (状态模式)示例代码，感兴趣的同学参考学习下。</p>
+<p>允许一个对象在其内部状态改变时改变它的行为,对象看起来似乎修改了它所属的类<br>状态state模式是GOF23种模式中的一种，和命令模式一样，也是一种行为模式。状态模式和命令模式相当像，一样是“接口—实现类”这种模式的应用，是面向接口编程原则的体现。</p>
+<p>状态模式属于对象创建型模式，其意图是允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了他的类。比较常见的例子是在一个表示网络连接的类TCPConnection，一个TCPConnection对象的状态处于若干不同的状态之一:连接已经建立(Established),正在监听，连接已经关闭(closed)。当一个TCPConnection对象收到其他对象的请求时，他根据自身的状态作出不同的反应。</p>
+<p>例如：一个Open请求的结果依赖于该连接已关闭还是连接已建立状态。State模式描述了TCPConnection如何在每一种状态下表现出不同的行为。这一种模式的关键思想是引入了一个称为TCPState的抽象类表示网络的连接状态，TCPState类为各种表示不同的操作状态的字类声明了一个公共接口。TCPState的子类实现与特定的状态相关的行为。例如，TCPEstablished和TCPClosed类分别实现了特定于TCPConnection的连接已建立状态和连接已关闭状态的行为。</p>
+<p>举例来说：一个人具有生气，高兴和抓狂等状态，在这些状态下做同一个事情可能会有不同的结果，一个人的心情可能在这三种状态中循环转变。使用一个moodState类表示一个人的心情，使用mad,Happy,Angry类代表不同的心情。</p>
+<p>先看一个例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 状态模式 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* 允许一个对象在其内部状态改变时改变它的行为,对象看起来似乎修改了它所属的类 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">/* 接口 定义所有状态该有的行为 */</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">State</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">($state)</span></span>; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">()</span></span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">private</span> $_state = <span class="keyword">null</span>; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($state)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;setState($state); </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setState</span><span class="params">($state)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_state = $state; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_state-&gt;display(); </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_state-&gt;handle(<span class="keyword">$this</span>); </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateA</span> <span class="keyword">implements</span> <span class="title">State</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">($context)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		$context-&gt;setState(<span class="keyword">new</span> StateB()); </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"state A&lt;br/&gt;"</span>; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateB</span> <span class="keyword">implements</span> <span class="title">State</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">($context)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		$context-&gt;setState(<span class="keyword">new</span> StateC()); </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"state B&lt;br/&gt;"</span>; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateC</span> <span class="keyword">implements</span> <span class="title">State</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">($context)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		$context-&gt;setState(<span class="keyword">new</span> StateA()); </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"state C&lt;br/&gt;"</span>; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 实例化一下 </span></span><br><span class="line">$objContext = <span class="keyword">new</span> Context(<span class="keyword">new</span> StateB()); </span><br><span class="line">$objContext-&gt;request(); </span><br><span class="line">$objContext-&gt;request(); </span><br><span class="line">$objContext-&gt;request(); </span><br><span class="line">$objContext-&gt;request(); </span><br><span class="line">$objContext-&gt;request();</span><br></pre></td></tr></table></figure>
+<h3 id="状态模式的理解，关键有2点："><a href="#状态模式的理解，关键有2点：" class="headerlink" title="状态模式的理解，关键有2点："></a>状态模式的理解，关键有2点：</h3><pre><code>1. 通常命令模式的接口中只有一个方法。 而状态模式的接口中有1个或者多个方法。而且，状态模式的实现类的方法，一般返回值；或者是改变实
+例变量的值。也就是说，状态模式一般和对象的状态有关。实现类的方法有不同的功能，覆盖接口中的方法。状态模式和命令模式一样，也可以用于
+消除if…else等条件选择语句。
+
+2. 主要的用途是，作为实例变量，是一个对象引用。命令模式的主要的使用方式是参数回调模式。命令接口作为方法的参数传递进来。然后，在方
+法体内回调该接口。而状态模式的主要使用方法，是作为实例变量，通过set属性方法，或者构造器把状态接口的具体实现类的实例传递进来。因此
+，可以这样比较命令模式和状态模式的异同。
+</code></pre><p>State模式和command模式都是十分常用，粒度比较小的模式，是很多更大型模式的一部分。基本上，state模式和command模式是十分相似的。只要开发者心中对单例和多例有一个清醒的认识，即使不把它们分为两种模式也没事。</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://blog.wddog.cn" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 xiaoxie</li>
+      <li><a href="http://blog.wddog.cn">Home</a></li>
+      
+      <li><a href="https://github.com/xiaoxiezaijia">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

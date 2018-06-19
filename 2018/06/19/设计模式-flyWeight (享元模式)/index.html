@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    php设计模式 FlyWeight (享元模式) | 帅气的狗头
+  </title>
+  <meta name="description" content="我们敲代码的不懂这些，，，">
+  
+  <meta name="keywords" content="
+  Design Patterns
+  ">
+  
+  <meta name="author" content="xiaoxie">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1953278525,788409613&amp;fm=27&amp;gp=0.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 33 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 12 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 7 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">帅气的狗头</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    xiaoxie
+
+    <span class="post-date float-right" title="{{moment(1529416425110).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1529416425110).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>php设计模式 FlyWeight (享元模式)</h1>
+    <p>本文为大家介绍的是php设计模式中的 FlyWeight (享元模式)示例代码，感兴趣的同学参考学习下。</p>
+<p>享元模式英文称为“Flyweight Pattern”，我非常感谢将Flyweight Pattern翻译成享元模式的那位强人，因为这个词将这个模式使用的方式明白得表示了出来；如果翻译成为羽量级模式或者蝇量级模式等等，虽然可以含蓄的表现出使用此模式达到的目的，但是还是没有抓住此模式的关键。</p>
+<p>享元模式的定义为：采用一个共享来避免大量拥有相同内容对象的开销。这种开销中最常见、直观的就是内存的损耗。享元模式以共享的方式高效的支持大量的细粒度对象。</p>
+<p>在名字和定义中都体现出了共享这一个核心概念，那么怎么来实现共享呢？要知道每个事物都是不同的，但是又有一定的共性，如果只有完全相同的事物才能共享，那么享元模式可以说就是不可行的；因此我们应该尽量将事物的共性共享，而又保留它的个性。为了做到这点，享元模式中区分了内蕴状态和外蕴状态。内蕴状态就是共性，外蕴状态就是个性了。</p>
+<p>注：共享的对象必须是不可变的，不然一变则全变（如果有这种需求除外）。</p>
+<p>内蕴状态存储在享元内部，不会随环境的改变而有所不同，是可以共享的；外蕴状态是不可以共享的，它随环境的改变而改变的，因此外蕴状态是由客户端来保持（因为环境的变化是由客户端引起的）。在每个具体的环境下，客户端将外蕴状态传递给享元，从而创建不同的对象出来。</p>
+<p>先看看下面程序，大概了解下享元模式。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 享元模式 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* 运用享元技术有效的支持大量细粒度的对象 </span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CD</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">private</span> $_title = <span class="keyword">null</span>; </span><br><span class="line">	<span class="keyword">private</span> $_artist = <span class="keyword">null</span>; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setTitle</span><span class="params">($title)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_title = $title; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getTitle</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_title; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setArtist</span><span class="params">($artist)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_artist = $artist; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getArtist</span><span class="params">($artist)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_artist; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Artist</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">private</span> $_name; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($name)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"construct "</span>.$name.<span class="string">"&lt;br/&gt;"</span>; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = $name; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_name; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArtistFactory</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">private</span> $_artists = <span class="keyword">array</span>(); </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getArtist</span><span class="params">($name)</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_artists[$name])) </span><br><span class="line">		&#123; </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_artists[$name]; </span><br><span class="line">		&#125; <span class="keyword">else</span> &#123; </span><br><span class="line">			$objArtist = <span class="keyword">new</span> Artist($name); </span><br><span class="line">			<span class="keyword">$this</span>-&gt;_artists[$name] = $objArtist; </span><br><span class="line">			<span class="keyword">return</span> $objArtist; </span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line">$objArtistFactory = <span class="keyword">new</span> ArtistFactory(); </span><br><span class="line">$objCD1 = <span class="keyword">new</span> CD(); </span><br><span class="line">$objCD1-&gt;setTitle(<span class="string">"title1"</span>); </span><br><span class="line">$objCD1-&gt;setArtist($objArtistFactory-&gt;getArtist(<span class="string">'artist1'</span>)); </span><br><span class="line">$objCD2 = <span class="keyword">new</span> CD(); </span><br><span class="line">$objCD2-&gt;setTitle(<span class="string">"title2"</span>); </span><br><span class="line">$objCD2-&gt;setArtist($objArtistFactory-&gt;getArtist(<span class="string">'artist2'</span>)); </span><br><span class="line">$objCD3 = <span class="keyword">new</span> CD(); </span><br><span class="line">$objCD3-&gt;setTitle(<span class="string">"title3"</span>); </span><br><span class="line">$objCD3-&gt;setArtist($objArtistFactory-&gt;getArtist(<span class="string">'artist1'</span>));</span><br></pre></td></tr></table></figure>
+<p>享元模式的精要有三点：</p>
+<p>被系统大量使用的细粒度对象，粒度要有多细，量要有多大，看看jdk中使用的享元模式就知道了，jdk中，Integer,Character,String等都使用了享元模式，他们都是最基础的数据类型，不可谓不细，他们频繁的参与运算，不可谓不大量。<br>划分对象的内蕴属性/状态和外蕴属性/状态;所谓内蕴状态，就是存在对象的内部，不会随着环境变化的状态， 有一个网友说的很好，就是无区别的状态， 即拿掉外蕴属性之后同一类对象没有区别对象的内蕴状态就是对象的元神，只要元神元神无区别，那么对象也就无区别，同时也只有这些无区别的元神可以被共享，我想这也是Flyweight被翻译成享元的原因。外蕴状态就是由客户端指定，会随着环境变化的状态; 对于Integer来说， 他的内蕴属性其实就是他的value(当然它也没有外蕴属性);<br>用一个工厂控制享元的创造;因为享元对象不能被客户端随意创造， 否则就没有意义了。工厂通常提供缓存机制保存已经创造的享元。<br>面向对象虽然很好地解决了抽象性的问题，但是对于一个实际运行的软件系统，我们还需要考虑面向对象的代价问题，享元模式解决的就是面向对象的代价问题。享元模式采用对象共享的做法来降低系统中对象的个数，从而降低细粒度对象给系统带来的内存压力。</p>
+<p>享元模式在一般的项目开发中并不常用，而是常常应用于系统底层的开发，以便解决系统的性能问题。Java和.Net中的String类型就是使用了享元模式。如果在Java或者.NET中已经创建了一个字符串对象s1，那么下次再创建相同的字符串s2的时候，系统只是把s2的引用指向s1所引用的具体对象，这就实现了相同字符串在内存中的共享。如果每次执行s1=“abc”操作的时候，都创建一个新的字符串对象的话，那么内存的开销会很大。</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://blog.wddog.cn" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 xiaoxie</li>
+      <li><a href="http://blog.wddog.cn">Home</a></li>
+      
+      <li><a href="https://github.com/xiaoxiezaijia">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

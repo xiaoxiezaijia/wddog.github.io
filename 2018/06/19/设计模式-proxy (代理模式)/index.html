@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    php设计模式-Proxy (代理模式) | 帅气的狗头
+  </title>
+  <meta name="description" content="我们敲代码的不懂这些，，，">
+  
+  <meta name="keywords" content="
+  Design Patterns
+  ">
+  
+  <meta name="author" content="xiaoxie">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1953278525,788409613&amp;fm=27&amp;gp=0.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 33 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 12 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 7 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">帅气的狗头</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    xiaoxie
+
+    <span class="post-date float-right" title="{{moment(1529412697998).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1529412697998).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>php设计模式-Proxy (代理模式)</h1>
+    <p>本文为大家介绍的是php设计模式 中的Proxy (代理模式)示例代码，感兴趣的同学参考学习下。</p>
+<p>为其他对象提供一个代理以控制这个对象的访问<br>代理，指的就是一个角色代表另一个角色采取行动，就象生活中，一个红酒厂商，是不会直接把红酒零售客户的，都是通过代理来完成他的销售业务。而客户，也不用为了喝红酒而到处找工厂，他只要找到厂商在当地的代理就行了，具体红酒工厂在那里，客户不用关心，代理会帮他处理。</p>
+<p>代理模式，就是给某一对象提供代理对象，并由代理对象控制具体对象的引用。</p>
+<p>代理模式涉及的角色：</p>
+<p>抽象主题角色，声明了代理主题和真实主题的公共接口，使任何需要真实主题的地方都能用代理主题代替。<br>代理主题角色，含有真实主题的引用，从而可以在任何时候操作真实主题，代理主题功过提供和真实主题相同的接口，使它可以随时代替真实主题。代理主题通过持有真实主题的引用，不但可以控制真实主题的创建或删除，可以在真实主题被调用前进行拦截，或在调用后进行某些操作。<br>真实代理对象，定义了代理角色所代表的具体对象。<br>参考一下代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 代理模式 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* 为其他对象提供一个代理以控制这个对象的访问 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Proxy</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span><span class="params">()</span></span>; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">()</span></span>; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RealSubject</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"RealSubject request&lt;br/&gt;"</span>; </span><br><span class="line">	&#125; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"RealSubject display&lt;br/&gt;"</span>; </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxySubject</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">	<span class="keyword">private</span> $_subject = <span class="keyword">null</span>; </span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_subject = <span class="keyword">new</span> RealSubject(); </span><br><span class="line">	&#125; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_subject-&gt;request(); </span><br><span class="line">	&#125; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">display</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123; </span><br><span class="line">		<span class="keyword">$this</span>-&gt;_subject-&gt;display(); </span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">$objProxy = <span class="keyword">new</span> ProxySubject(); </span><br><span class="line">$objProxy-&gt;request(); </span><br><span class="line">$objProxy-&gt;display();</span><br></pre></td></tr></table></figure>
+<p>代理模式的工作方式：首先，因为代理主题和真实主题都实现了共同的接口，这使我们可以在不改变原来接口的情况下，只要用真实主题对象的地方，都可以用代理主题来代替。其次，代理主题在客户和真实主题之间起了一个中介作用，利用这个中介平台，我们可以在把客户请求传递给真实主题之前做一些必要的预处理。</p>
+<p>还有一个很常见的代理模式的使用例子就是对大幅图片浏览的控制。在我们常见的网站上面浏览图文的信息时，不知道你有没有注意到，图片位置放置的是经过缩小的，当有人要仔细的查看这个图片时，可以通过点击图片来激活一个链接，在一个新的网页打开要看的图片 。这样对于提高浏览速度是很有好处的，因为不是每个人都要去看仔细图上的信息。这种情况就可以使用代理模式来全面实现。这里我将思路表述出来，至于实现由于工作原因，就不表述了，至于这种方式在B/S模式下的真实可行性，我没有确认过，只是凭空的想象。如果不是可行的方式，那这个例子可以放到一个C/S下来实现，这个是绝对没有问题的，而且在很多介绍设计模式的书和文章中使用。两种方式的实现有兴趣的可以来尝试一下：）</p>
+<p>我们在浏览器中访问网页时是调用的不是真实的装载图片的方法，而是在代理对象中的方法，在这个对象中，先使用一个线程向浏览器装载了一个缩小版的图片，而在后台使用另一个线程来调用真实的装载大图片的方法将图片加载到本地，当你要浏览这个图片的时候，将其在新的网页中显示出来。当然如果在你想浏览的时候图片尚未加载成功，可以再启动一个线程来显示提示信息，直到加载成功。</p>
+<p>这样代理模式的功能就在上面体现的淋漓尽致——通过代理来将真实图片的加载放到后台来操作，使其不影响前台的浏览。</p>
+<p>代理模式能够协调调用者和被调用者，能够在一定程度上降低系统的耦合度。不过一定要记住前面讲的使用代理模式的条件，不然的话使用了代理模式不但不会有好的效果，说不定还会出问题的。</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <a href="http://blog.wddog.cn" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 xiaoxie</li>
+      <li><a href="http://blog.wddog.cn">Home</a></li>
+      
+      <li><a href="https://github.com/xiaoxiezaijia">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
